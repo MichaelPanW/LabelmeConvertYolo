@@ -1,2 +1,5 @@
-*.json
-*.txt
+!*.py
+!.gitignore
+*.*
+!labels.txt
+!README.md
