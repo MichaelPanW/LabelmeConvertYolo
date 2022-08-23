@@ -21,7 +21,7 @@ def getValue(point, all_size):
 
 labels = []
 labels_file_name = input("label file(labels.txt):") or 'labels.txt'
-label_folder = input("label folder(label):") or 'label'
+label_folder = input("label folder(data):") or 'data'
 images_folder = input("image folder(./images/):") or './images/'
 output_folder = 'all_label'
 pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True)
@@ -55,16 +55,25 @@ for filename in glob(path.join(label_folder, '*.json')):
 pathlib.Path('labels/train').mkdir(parents=True, exist_ok=True)
 pathlib.Path('labels/test').mkdir(parents=True, exist_ok=True)
 pathlib.Path('labels/val').mkdir(parents=True, exist_ok=True)
+pathlib.Path('images/train').mkdir(parents=True, exist_ok=True)
+pathlib.Path('images/test').mkdir(parents=True, exist_ok=True)
+pathlib.Path('images/val').mkdir(parents=True, exist_ok=True)
 file_list = glob(path.join(output_folder, '*.txt'))
 limit = len(file_list)/10
 for index in range(len(file_list)):
     raw_name = file_list[index].split('\\')[-1]
     if (index < limit):
         shutil.copyfile(file_list[index], 'labels/test/'+raw_name)
+        shutil.copyfile(file_list[index].replace('.txt', '.jpg').replace('all_label', 'data'), images_folder +
+                        'test/'+raw_name.replace('.txt', '.jpg'))
     elif index < limit*2:
         shutil.copyfile(file_list[index], 'labels/val/'+raw_name)
+        shutil.copyfile(file_list[index].replace('.txt', '.jpg').replace('all_label', 'data'), images_folder +
+                        'val/'+raw_name.replace('.txt', '.jpg'))
     else:
         shutil.copyfile(file_list[index], 'labels/train/'+raw_name)
+        shutil.copyfile(file_list[index].replace('.txt', '.jpg').replace('all_label', 'data'), images_folder +
+                        'train/'+raw_name.replace('.txt', '.jpg'))
 
 file_list = glob(path.join(output_folder, '*.txt'))
 writeFile('test', images_folder)
