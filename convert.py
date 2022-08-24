@@ -11,7 +11,8 @@ def writeFile(name, image_folder=''):
         for file in glob(path.join('labels/'+name+'/', '*.txt')):
             raw_name = file.split('\\')[-1]
             # Writes to the file used .write() method
-            fil.write(image_folder+raw_name.replace('.txt', '.jpg')+'\n')
+            fil.write(image_folder+name+'/' +
+                      raw_name.replace('.txt', '.jpg')+'\n')
         fil.close()  # Closes file
 
 
