@@ -11,10 +11,13 @@ male
 female
 ```
 
-## json檔放在label資料夾中
+## json檔跟圖片放在data資料夾中
 ```
-├── label
+├── data
 │   ├── img1.json
 │   ├── img2.json
 │   ├── img3.json
+|   ├── img1.jpg
+│   ├── img2.jpg
+│   ├── img3.jpg
 ```

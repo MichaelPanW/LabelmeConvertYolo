@@ -23,7 +23,7 @@ def getValue(point, all_size):
 labels = []
 labels_file_name = input("label file(labels.txt):") or 'labels.txt'
 label_folder = input("label folder(data):") or 'data'
-images_folder = input("image folder(./images/):") or './images/'
+images_folder = './images/'
 output_folder = 'all_label'
 pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True)
 with open(labels_file_name) as f:
