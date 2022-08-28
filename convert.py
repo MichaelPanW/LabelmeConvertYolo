@@ -33,26 +33,30 @@ for filename in glob(path.join(label_folder, '*.json')):
     with open(filename, 'r') as f:  # open in readonly mode
 
         data = load(f)
-        for shape in data['shapes']:
-            if (shape['label'] in labels):
-                try:
-                    # open in readonly mode
-                    with open(output_folder+'/'+raw_name.replace('.json', '.txt'), 'w') as w:
+        with open(output_folder+'/'+raw_name.replace('.json', '.txt'), 'w') as w:
+            for shape in data['shapes']:
+                if (shape['label'] in labels):
+                    try:
+                        # open in readonly mode
                         w.write(str(labels.index(shape['label']))+" ")
+                        w.write(getValue((shape['points']
+                                [1][0]+shape['points']
+                                [0][0])/2, data['imageWidth']))
+                        w.write(" ")
+                        w.write(getValue((shape['points']
+                                [1][1]+shape['points']
+                                [0][1])/2, data['imageHeight']))
+                        w.write(" ")
                         w.write(getValue(shape['points']
+                                [1][0]-shape['points']
                                 [0][0], data['imageWidth']))
                         w.write(" ")
                         w.write(getValue(shape['points']
+                                [1][1]-shape['points']
                                 [0][1], data['imageHeight']))
-                        w.write(" ")
-                        w.write(getValue(shape['points']
-                                [1][0], data['imageWidth']))
-                        w.write(" ")
-                        w.write(getValue(shape['points']
-                                [1][1], data['imageHeight']))
                         w.write("\n")
-                except:
-                    pass
+                    except:
+                        pass
 pathlib.Path('labels/train').mkdir(parents=True, exist_ok=True)
 pathlib.Path('labels/test').mkdir(parents=True, exist_ok=True)
 pathlib.Path('labels/val').mkdir(parents=True, exist_ok=True)
